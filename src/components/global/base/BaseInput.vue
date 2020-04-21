@@ -21,23 +21,23 @@
   </el-input>
 </template>
 <script>
-import { onlyNumber, onlyFloat, onlyFixedTwo, formatToFixedTwo } from "@/utils/input";
-import { flat } from "@/utils/tools";
+import { onlyNumber, onlyFloat, onlyFixedTwo, formatToFixedTwo } from '@/utils/input'
+import { flat } from '@/utils/tools'
 
-const TEXT = "text";
-const NUMBER = "number";
-const FLOAT = "float";
-const PHONE = "phone";
-const MONEY = "money";
-const typeList = [TEXT, NUMBER, FLOAT, PHONE, MONEY];
-const noop = () => {};
+const TEXT = 'text'
+const NUMBER = 'number'
+const FLOAT = 'float'
+const PHONE = 'phone'
+const MONEY = 'money'
+const typeList = [TEXT, NUMBER, FLOAT, PHONE, MONEY]
+const noop = () => {}
 const inputHandle = new Map()
   .set(TEXT, noop)
   .set(NUMBER, onlyNumber)
   .set(FLOAT, onlyFloat)
   .set(PHONE, onlyNumber)
-  .set(MONEY, [onlyFloat, onlyFixedTwo]);
-const blurHandle = new Map().set(MONEY, formatToFixedTwo);
+  .set(MONEY, [onlyFloat, onlyFixedTwo])
+const blurHandle = new Map().set(MONEY, formatToFixedTwo)
 
 export default {
   inheritAttrs: false,
@@ -46,106 +46,106 @@ export default {
     labelName: {
       type: String,
       default() {
-        return "";
+        return ''
       }
     },
     // 允许输入值类型，默认为text
     formType: {
       type: String,
       default() {
-        return "text";
+        return 'text'
       },
       validator(val) {
-        return typeList.includes(val);
+        return typeList.includes(val)
       }
     },
     // 是否可清空，默认为可清空
     clearable: {
       type: Boolean,
       default() {
-        return true;
+        return true
       }
     },
     // 自适应内容高度，只对 type="textarea" 有效
     autosize: {
       type: [Object, Boolean],
       default() {
-        return { minRows: 2, maxRows: 4 };
+        return { minRows: 2, maxRows: 4 }
       }
     },
     showWordLimit: {
       type: Boolean,
       default() {
-        return undefined;
+        return undefined
       }
     }
   },
   computed: {
     // 组装提示信息
     placeholder() {
-      if (typeof this.$attrs.placeholder !== "undefined") {
-        return this.$attrs.placeholder;
+      if (typeof this.$attrs.placeholder !== 'undefined') {
+        return this.$attrs.placeholder
       }
-      const readonly = this.$attrs.disabled || this.$attrs.readonly;
+      const readonly = this.$attrs.disabled || this.$attrs.readonly
       if (readonly) {
-        return "";
+        return ''
       }
-      return "请输入" + this.labelName;
+      return '请输入' + this.labelName
     },
     // 最大输入长度
     maxlen() {
-      if (typeof this.$attrs.maxlength !== "undefined") {
-        return this.$attrs.maxlength;
+      if (typeof this.$attrs.maxlength !== 'undefined') {
+        return this.$attrs.maxlength
       }
       if (this.formType === PHONE) {
-        return 11;
+        return 11
       }
-      if (this.$attrs.type === "textarea") {
-        return 200;
+      if (this.$attrs.type === 'textarea') {
+        return 200
       }
-      return 50;
+      return 50
     },
     // 是否显示输入字数统计
     showLimit() {
-      if (typeof this.showWordLimit !== "undefined") {
-        return this.showWordLimit;
+      if (typeof this.showWordLimit !== 'undefined') {
+        return this.showWordLimit
       }
-      if (this.$attrs.type === "textarea" || this.maxlen < 20) {
-        return true;
+      if (this.$attrs.type === 'textarea' || this.maxlen < 20) {
+        return true
       }
-      return false;
+      return false
     }
   },
   methods: {
     // Input Methods
     focus() {
-      this.$refs.baseInput.focus();
+      this.$refs.baseInput.focus()
     },
     blur() {
-      this.$refs.baseInput.blur();
+      this.$refs.baseInput.blur()
     },
     select() {
-      this.$refs.baseInput.select();
+      this.$refs.baseInput.select()
     },
     // 拦截输入事件
     inputEvent(e) {
-      const value = inputHandle.get(this.formType);
-      let handleArr = [];
+      const value = inputHandle.get(this.formType)
+      let handleArr = []
       if (value) {
-        handleArr = flat(Array.of(value));
+        handleArr = flat(Array.of(value))
       }
-      handleArr.forEach(handle => handle(e.target));
-      this.$emit("input", e.target.value);
+      handleArr.forEach(handle => handle(e.target))
+      this.$emit('input', e.target.value)
     },
     blurEvent(e) {
-      const value = blurHandle.get(this.formType);
-      let handleArr = [];
+      const value = blurHandle.get(this.formType)
+      let handleArr = []
       if (value) {
-        handleArr = flat(Array.of(value));
+        handleArr = flat(Array.of(value))
       }
-      handleArr.forEach(handle => handle(e.target));
-      this.$emit("blur", e.target.value);
+      handleArr.forEach(handle => handle(e.target))
+      this.$emit('blur', e.target.value)
     }
   }
-};
+}
 </script>

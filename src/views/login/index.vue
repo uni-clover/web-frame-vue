@@ -38,91 +38,91 @@
 
 <script>
 export default {
-  name: "home",
+  name: 'home',
   data() {
     return {
       loginInfo: {
-        phone: "13636363636",
-        pass: "admin"
+        phone: '13636363636',
+        pass: 'admin'
       },
       loading: false,
       rules: {
         phone: [
           {
             required: true,
-            message: "请输入手机号"
+            message: '请输入手机号'
           },
           {
             pattern: /^1[3-9]\d{9}$/,
-            message: "请输入正确的手机号",
-            trigger: "blur"
+            message: '请输入正确的手机号',
+            trigger: 'blur'
           }
         ],
         pass: [
           {
             required: true,
-            message: "请输入密码"
+            message: '请输入密码'
           }
         ]
       }
-    };
+    }
   },
   methods: {
     // 验证表单
     validate() {
       this.$refs.login.validate(valid => {
         if (!valid) {
-          return;
+          return
         }
         // this.login();
-        this.$store.commit("user/SET_LOGIN", { token: "sc156266cas" });
-        this.$store.commit("user/SET_MENU");
-        this.$router.push(this.$route.query.redirect || "/");
-      });
+        this.$store.commit('user/SET_LOGIN', { token: 'sc156266cas' })
+        this.$store.commit('user/SET_MENU')
+        this.$router.push(this.$route.query.redirect || '/')
+      })
     },
     // 登录处理
     login() {
-      this.loading = true;
+      this.loading = true
       this.$_http
         .post(this.$_API.INTERFACE_LOGIN, this.loginInfo)
         .then(
           res => {
-            if (!res.data) return;
-            this.$store.commit("user/SET_LOGIN", res.data);
-            this.loadMenus();
+            if (!res.data) return
+            this.$store.commit('user/SET_LOGIN', res.data)
+            this.loadMenus()
           },
           () => {
-            this.loading = false;
+            this.loading = false
           }
         )
         .catch(it => {
-          this.loading = false;
-        });
+          this.loading = false
+        })
     },
     // 获取菜单
     loadMenus() {
       this.$_http
         .get(this.$_API.INTERFACE_USER_MENUS)
         .then(res => {
-          if (!res.data) return;
-          this.$store.commit("user/SET_MENU", res.data);
-          this.$router.push(this.$route.query.redirect || "/");
+          if (!res.data) return
+          this.$store.commit('user/SET_MENU', res.data)
+          this.$router.push(this.$route.query.redirect || '/')
         })
         .catch(e => {
-          let status = e && e.response && e.response.status;
+          let status = e && e.response && e.response.status
           // 401在共通已处理
-          if (status !== 401) this.$store.dispatch("user/logout");
+          if (status !== 401) this.$store.dispatch('user/logout')
         })
         .finally(it => {
-          this.loading = false;
-        });
+          this.loading = false
+        })
     },
     // 清空
     clear() {
-      this.loginInfo.phone = "";
+      this.loginInfo.phone = ''
     }
   }
-};
+}
 </script>
 <style lang="scss" scoped>
 $card-height: 63vh;

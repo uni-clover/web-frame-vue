@@ -10,24 +10,24 @@
 
 <script>
 export default {
-  name: "AppMain",
+  name: 'AppMain',
   props: {
     active: {
       type: Boolean,
       default() {
-        return true;
+        return true
       }
     }
   },
   computed: {
     cachedViews() {
-      return this.$store.state.tagsView.cachedViews;
+      return this.$store.state.tagsView.cachedViews
     },
     key() {
-      return this.$route.fullPath;
+      return this.$route.fullPath
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

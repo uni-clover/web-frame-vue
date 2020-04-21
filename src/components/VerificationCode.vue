@@ -8,7 +8,7 @@
   </div>
 </template>
 <script>
-const reg = /^1[3-9]\d{9}$/;
+const reg = /^1[3-9]\d{9}$/
 export default {
   inheritAttrs: false,
   props: {
@@ -21,7 +21,7 @@ export default {
     countdown: {
       type: [String, Number],
       default() {
-        return 60;
+        return 60
       }
     }
   },
@@ -29,49 +29,49 @@ export default {
     return {
       sended: false,
       time: this.countdown
-    };
+    }
   },
   methods: {
     // 点击【获取验证码】按钮
     getVerificationCode(e) {
       if (this.sended) {
-        return;
+        return
       }
       if (!this.phoneNo) {
-        this.$_warning("请先输入手机号");
-        return;
+        this.$_warning('请先输入手机号')
+        return
       }
       // 可以单独处理点击事件
       if (this.$listeners.click) {
-        return;
+        return
       }
       if (!reg.test(this.phoneNo)) {
-        return;
+        return
       }
-      this.sended = true;
+      this.sended = true
       this.$_http
         .post(this.$_API.INTERFACE_USER_VALICODE_GET, {
           phone: this.phoneNo
         })
         .then(this.sendSuccess)
-        .catch(() => (this.sended = false));
+        .catch(() => (this.sended = false))
     },
     // 发送验证码成功后的回调
     sendSuccess() {
       const interval = setInterval(it => {
         if (this.time > 1) {
-          this.time--;
-          return;
+          this.time--
+          return
         }
-        clearInterval(interval);
-        this.reset();
-      }, 1000);
+        clearInterval(interval)
+        this.reset()
+      }, 1000)
     },
     // 重置组件状态
     reset() {
-      this.sended = false;
-      this.time = this.countdown;
+      this.sended = false
+      this.time = this.countdown
     }
   }
-};
+}
 </script>

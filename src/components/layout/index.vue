@@ -14,17 +14,17 @@
 </template>
 
 <script>
-import { AppMain, Navbar, Sidebar, TagsView, Password } from "./components";
-import ResizeMixin from "./mixin/ResizeHandler";
-import { mapState } from "vuex";
-const noop = () => {};
+import { AppMain, Navbar, Sidebar, TagsView, Password } from './components'
+import ResizeMixin from './mixin/ResizeHandler'
+import { mapState } from 'vuex'
+const noop = () => {}
 export default {
-  name: "Layout",
+  name: 'Layout',
   provide() {
     return {
       reload: this.reload,
       close: this.close
-    };
+    }
   },
   components: {
     AppMain,
@@ -43,7 +43,7 @@ export default {
         receive: noop,
         refuse: noop
       }
-    };
+    }
   },
   computed: {
     ...mapState({
@@ -55,27 +55,27 @@ export default {
         hideSidebar: !this.sidebar.opened,
         openSidebar: this.sidebar.opened,
         withoutAnimation: this.sidebar.withoutAnimation,
-        mobile: this.device === "mobile"
-      };
+        mobile: this.device === 'mobile'
+      }
     }
   },
   methods: {
     handleClickOutside() {
-      this.$store.dispatch("app/closeSideBar", { withoutAnimation: false });
+      this.$store.dispatch('app/closeSideBar', { withoutAnimation: false })
     },
     // 刷新页面
     reload() {
-      this.active = false;
+      this.active = false
       this.$nextTick(() => {
-        this.active = true;
-      });
+        this.active = true
+      })
     },
     // 关闭当前页面
     close() {
-      return this.$refs.tagsView.closeSelectedTag(this.$route);
+      return this.$refs.tagsView.closeSelectedTag(this.$route)
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

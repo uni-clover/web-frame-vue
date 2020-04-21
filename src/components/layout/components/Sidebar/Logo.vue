@@ -12,9 +12,9 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters } from 'vuex'
 export default {
-  name: "SidebarLogo",
+  name: 'SidebarLogo',
   props: {
     collapse: {
       type: Boolean,
@@ -23,16 +23,16 @@ export default {
   },
   data() {
     return {
-      logo: "/logo.png"
-    };
+      logo: '/logo.png'
+    }
   },
   computed: {
-    ...mapGetters(["userInfo"]),
+    ...mapGetters(['userInfo']),
     title() {
-      return "基于Vue的系统框架";
+      return '基于Vue的系统框架'
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

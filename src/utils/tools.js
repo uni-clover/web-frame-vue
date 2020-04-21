@@ -1,4 +1,4 @@
-"use strict";
+'use strict'
 
 // 工具包：普通js常用方法
 
@@ -9,14 +9,14 @@
  */
 export function optionalCopy(from, ...noNeedFileds) {
   if (!from) {
-    return {};
+    return {}
   }
   return Object.entries(from).reduce((ret, [key, value]) => {
     if (!flat(noNeedFileds).includes(key)) {
-      ret[key] = value;
+      ret[key] = value
     }
-    return ret;
-  }, {});
+    return ret
+  }, {})
 }
 
 /**
@@ -26,17 +26,17 @@ export function optionalCopy(from, ...noNeedFileds) {
  */
 export function optionalFormCopy(from, ...noNeedFileds) {
   if (!from) {
-    return {};
+    return {}
   }
   return Object.entries(from).reduce((ret, [key, value]) => {
-    if (isDataType(value, "null", "undefined")) {
-      return ret;
+    if (isDataType(value, 'null', 'undefined')) {
+      return ret
     }
     if (!flat(noNeedFileds).includes(key)) {
-      ret[key] = value;
+      ret[key] = value
     }
-    return ret;
-  }, {});
+    return ret
+  }, {})
 }
 
 /**
@@ -48,20 +48,20 @@ export function optionalFormCopy(from, ...noNeedFileds) {
  */
 export function isDataType(data, ...typeList) {
   let dataType = Object.prototype.toString.call(data)
-    .replace(/^\[object/, "")
-    .replace(/\]$/, "")
-    .replace(/\s/, "");
-  typeList = flat(typeList);
+    .replace(/^\[object/, '')
+    .replace(/\]$/, '')
+    .replace(/\s/, '')
+  typeList = flat(typeList)
   let hasType = typeList.some(it => {
-    return it && isDataType(it) === "String";
-  });
+    return it && isDataType(it) === 'String'
+  })
   if (!hasType) {
-    return dataType;
+    return dataType
   }
   if (typeList.includes(dataType) || typeList.includes(dataType.toLowerCase())) {
-    return true;
+    return true
   }
-  return false;
+  return false
 }
 
 /**
@@ -69,22 +69,22 @@ export function isDataType(data, ...typeList) {
  * @param  {...any} datas 待解析数据
  */
 export function getAllPromise(...datas) {
-  let promiseList = [];
+  let promiseList = []
   datas.forEach(it => {
-    if (isDataType(it, "Promise")) {
-      promiseList.push(it);
-      return;
+    if (isDataType(it, 'Promise')) {
+      promiseList.push(it)
+      return
     }
     // 是方法则获取执行的结果
-    if (isDataType(it, "Function")) {
-      promiseList.push(...getAllPromise(it()));
-      return;
+    if (isDataType(it, 'Function')) {
+      promiseList.push(...getAllPromise(it()))
+      return
     }
-    if (isDataType(it, "Array")) {
-      promiseList.push(...getAllPromise(...it));
+    if (isDataType(it, 'Array')) {
+      promiseList.push(...getAllPromise(...it))
     }
-  });
-  return promiseList;
+  })
+  return promiseList
 }
 
 /**
@@ -92,21 +92,21 @@ export function getAllPromise(...datas) {
  * @param  {...any} monthList 月份
  */
 export function getDayCount(...monthList) {
-  let allMonthDay = [31, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30];
-  let now = new Date();
+  let allMonthDay = [31, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30]
+  let now = new Date()
   return flat(monthList).reduce((total, current) => {
-    let m = ~~current;
+    let m = ~~current
     if (m % 12 === -10 || m % 12 === 2) {
       // 2月份天数单独算
-      let year = now.getFullYear() + ~~(m / 12);
-      let day = year % 4 === 0 ? 29 : 28;
-      return total + day;
+      let year = now.getFullYear() + ~~(m / 12)
+      let day = year % 4 === 0 ? 29 : 28
+      return total + day
     }
     if (m < 0) {
-      return total + allMonthDay[12 + m % 12];
+      return total + allMonthDay[12 + m % 12]
     }
-    return total + allMonthDay[m % 12];
-  }, 0);
+    return total + allMonthDay[m % 12]
+  }, 0)
 }
 
 /**
@@ -115,18 +115,18 @@ export function getDayCount(...monthList) {
  */
 export function flat(list) {
   if (Array.prototype.flat) {
-    return list.flat(Infinity);
+    return list.flat(Infinity)
   }
-  let retArr = [];
+  let retArr = []
   if (!Array.isArray(list)) {
-    throw new Error(`Invalid parameter: type check failed for parameter 'list'. Expected Array, But got ${typeof list} with value ${list}`);
+    throw new Error(`Invalid parameter: type check failed for parameter 'list'. Expected Array, But got ${typeof list} with value ${list}`)
   }
   list.forEach(it => {
     if (!Array.isArray(it)) {
-      retArr.push(it);
-      return;
+      retArr.push(it)
+      return
     }
-    retArr.push(...flat(it));
-  });
-  return retArr;
+    retArr.push(...flat(it))
+  })
+  return retArr
 }

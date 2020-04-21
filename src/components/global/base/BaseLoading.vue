@@ -12,16 +12,16 @@ export default {
     containName: {
       type: String,
       default() {
-        return "div";
+        return 'div'
       }
     },
     // loading属性
     loading: {
       type: Boolean,
       default() {
-        return false;
+        return false
       }
     }
   }
-};
+}
 </script>

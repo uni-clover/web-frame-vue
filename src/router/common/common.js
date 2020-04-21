@@ -1,23 +1,23 @@
-import Layout from "@/components/layout";
-import NotFound from "@/components/not-found";
+import Layout from '@/components/layout'
+import NotFound from '@/components/not-found'
 
 export default [
   {
-    path: "/",
+    path: '/',
     component: Layout,
-    redirect: "/home",
+    redirect: '/home',
     children: [
       {
-        path: "home",
-        component: () => import("@/views/Home"),
-        name: "home",
-        meta: { title: "首页" }
+        path: 'home',
+        component: () => import('@/views/Home'),
+        name: 'home',
+        meta: { title: '首页' }
       }
     ]
   },
   {
-    path: "*",
-    name: "error",
+    path: '*',
+    name: 'error',
     component: NotFound
   }
-];
+]

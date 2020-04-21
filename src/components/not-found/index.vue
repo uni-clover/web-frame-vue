@@ -18,16 +18,16 @@
 </template>
 
 <script>
-import Img404 from "@/assets/image/404.png";
-import Img404Cloud from "@/assets/image/404_cloud.png";
+import Img404 from '@/assets/image/404.png'
+import Img404Cloud from '@/assets/image/404_cloud.png'
 export default {
   data() {
     return {
       img_404: Img404,
       img_404_cloud: Img404Cloud
-    };
+    }
   }
-};
+}
 </script>
 <style scoped>
 .wscn-http404 {

@@ -16,9 +16,9 @@ export default {
     fit: {
       type: String,
       default: () => {
-        return "contain";
+        return 'contain'
       }
     }
   }
-};
+}
 </script>

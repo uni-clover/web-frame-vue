@@ -27,10 +27,10 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import Breadcrumb from "./Breadcrumb";
-import Hamburger from "./Hamburger";
-import avatar from "@/assets/image/default-avatar.png";
+import { mapGetters } from 'vuex'
+import Breadcrumb from './Breadcrumb'
+import Hamburger from './Hamburger'
+import avatar from '@/assets/image/default-avatar.png'
 
 export default {
   components: {
@@ -40,34 +40,34 @@ export default {
   data() {
     return {
       avatar
-    };
+    }
   },
   computed: {
-    ...mapGetters(["sidebar", "device", "userInfo"])
+    ...mapGetters(['sidebar', 'device', 'userInfo'])
   },
   methods: {
     toggleSideBar() {
-      this.$store.dispatch("app/toggleSideBar");
+      this.$store.dispatch('app/toggleSideBar')
     },
     command(e) {
       switch (e) {
-        case "home":
-          break;
-        case "password":
-          this.$emit("changePsssword");
-          break;
-        case "logout":
-          this.logout();
+        case 'home':
+          break
+        case 'password':
+          this.$emit('changePsssword')
+          break
+        case 'logout':
+          this.logout()
       }
     },
     logout() {
-      this.$store.dispatch("user/logout");
+      this.$store.dispatch('user/logout')
       // this.$_http.post(this.$_API.INTERFACE_LOGOUT).then(() => {
       //   this.$store.dispatch("user/logout");
       // });
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

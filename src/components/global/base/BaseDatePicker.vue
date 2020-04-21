@@ -9,144 +9,144 @@
   </el-date-picker>
 </template>
 <script>
-import { getDayCount } from "@/utils/tools";
+import { getDayCount } from '@/utils/tools'
 const SHORT_CUTS = [
   {
-    id: "today",
-    text: "今天",
+    id: 'today',
+    text: '今天',
     onClick(picker) {
-      picker.$emit("pick", new Date());
+      picker.$emit('pick', new Date())
     }
   },
   {
-    id: "yesterday",
-    text: "昨天",
+    id: 'yesterday',
+    text: '昨天',
     onClick(picker) {
-      const date = new Date();
-      date.setTime(date.getTime() - 3600 * 1000 * 24);
-      picker.$emit("pick", date);
+      const date = new Date()
+      date.setTime(date.getTime() - 3600 * 1000 * 24)
+      picker.$emit('pick', date)
     }
   },
   {
-    id: "beforeYesterday",
-    text: "前天",
+    id: 'beforeYesterday',
+    text: '前天',
     onClick(picker) {
-      const date = new Date();
-      date.setTime(date.getTime() - 3600 * 1000 * 24 * 2);
-      picker.$emit("pick", date);
+      const date = new Date()
+      date.setTime(date.getTime() - 3600 * 1000 * 24 * 2)
+      picker.$emit('pick', date)
     }
   },
   {
-    id: "weekAgo",
-    text: "一周前",
+    id: 'weekAgo',
+    text: '一周前',
     onClick(picker) {
-      const date = new Date();
-      date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
-      picker.$emit("pick", date);
+      const date = new Date()
+      date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
+      picker.$emit('pick', date)
     }
   },
   {
-    id: "tomorrow",
-    text: "明天",
+    id: 'tomorrow',
+    text: '明天',
     onClick(picker) {
-      const date = new Date();
-      date.setTime(date.getTime() + 3600 * 1000 * 24);
-      picker.$emit("pick", date);
+      const date = new Date()
+      date.setTime(date.getTime() + 3600 * 1000 * 24)
+      picker.$emit('pick', date)
     }
   },
   {
-    id: "afterTomorrow",
-    text: "后天",
+    id: 'afterTomorrow',
+    text: '后天',
     onClick(picker) {
-      const date = new Date();
-      date.setTime(date.getTime() + 3600 * 1000 * 24 * 2);
-      picker.$emit("pick", date);
+      const date = new Date()
+      date.setTime(date.getTime() + 3600 * 1000 * 24 * 2)
+      picker.$emit('pick', date)
     }
   },
   {
-    id: "weekLater",
-    text: "一周后",
+    id: 'weekLater',
+    text: '一周后',
     onClick(picker) {
-      const date = new Date();
-      date.setTime(date.getTime() + 3600 * 1000 * 24 * 7);
-      picker.$emit("pick", date);
+      const date = new Date()
+      date.setTime(date.getTime() + 3600 * 1000 * 24 * 7)
+      picker.$emit('pick', date)
     }
   },
   {
-    id: "monthLater",
-    text: "一月后",
+    id: 'monthLater',
+    text: '一月后',
     onClick(picker) {
-      const date = new Date();
-      const day = date.getDate();
-      const month = date.getMonth() + 1;
+      const date = new Date()
+      const day = date.getDate()
+      const month = date.getMonth() + 1
       const oneMonth =
         day <= getDayCount(month + 1)
           ? getDayCount(month)
-          : getDayCount(month + 1);
-      date.setTime(date.getTime() + 3600 * 1000 * 24 * oneMonth);
-      picker.$emit("pick", date);
+          : getDayCount(month + 1)
+      date.setTime(date.getTime() + 3600 * 1000 * 24 * oneMonth)
+      picker.$emit('pick', date)
     }
   },
   {
-    id: "yearLater",
-    text: "一年后",
+    id: 'yearLater',
+    text: '一年后',
     onClick(picker) {
-      const date = new Date();
-      const month = date.getMonth() + 1;
-      let year = date.getFullYear();
-      let isLeapYear = year % 4 === 0;
+      const date = new Date()
+      const month = date.getMonth() + 1
+      let year = date.getFullYear()
+      let isLeapYear = year % 4 === 0
       if (month > 2) {
-        isLeapYear = (year + 1) % 4 === 0;
+        isLeapYear = (year + 1) % 4 === 0
       }
-      const oneYear = isLeapYear ? 366 : 365;
-      date.setTime(date.getTime() + 3600 * 1000 * 24 * oneYear);
-      picker.$emit("pick", date);
+      const oneYear = isLeapYear ? 366 : 365
+      date.setTime(date.getTime() + 3600 * 1000 * 24 * oneYear)
+      picker.$emit('pick', date)
     }
   },
   {
-    id: "week",
-    text: "最近一周",
+    id: 'week',
+    text: '最近一周',
     onClick(picker) {
-      const start = new Date();
-      const end = new Date();
-      start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-      picker.$emit("pick", [start, end]);
+      const start = new Date()
+      const end = new Date()
+      start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
+      picker.$emit('pick', [start, end])
     }
   },
   {
-    id: "month",
-    text: "最近一个月",
+    id: 'month',
+    text: '最近一个月',
     onClick(picker) {
-      const start = new Date();
-      const end = new Date();
-      const day = start.getDate();
-      const month = start.getMonth() + 1;
+      const start = new Date()
+      const end = new Date()
+      const day = start.getDate()
+      const month = start.getMonth() + 1
       const oneMonth =
         day <= getDayCount(month - 1)
           ? getDayCount(month - 1)
-          : getDayCount(month);
-      start.setTime(start.getTime() - 3600 * 1000 * 24 * oneMonth);
-      picker.$emit("pick", [start, end]);
+          : getDayCount(month)
+      start.setTime(start.getTime() - 3600 * 1000 * 24 * oneMonth)
+      picker.$emit('pick', [start, end])
     }
   },
   {
-    id: "threeMonth",
-    text: "最近三个月",
+    id: 'threeMonth',
+    text: '最近三个月',
     onClick(picker) {
-      const start = new Date();
-      const end = new Date();
-      const day = start.getDate();
-      const month = start.getMonth() + 1;
+      const start = new Date()
+      const end = new Date()
+      const day = start.getDate()
+      const month = start.getMonth() + 1
       const oneMonth =
         day <= getDayCount(month - 3)
           ? getDayCount(month - 3)
-          : getDayCount(month);
-      const threeMonth = oneMonth + getDayCount(month - 2, month - 1);
-      start.setTime(start.getTime() - 3600 * 1000 * 24 * threeMonth);
-      picker.$emit("pick", [start, end]);
+          : getDayCount(month)
+      const threeMonth = oneMonth + getDayCount(month - 2, month - 1)
+      start.setTime(start.getTime() - 3600 * 1000 * 24 * threeMonth)
+      picker.$emit('pick', [start, end])
     }
   }
-];
+]
 export default {
   inheritAttrs: false,
   props: {
@@ -158,28 +158,28 @@ export default {
     placeholder: {
       type: String,
       default() {
-        return "请选择日期";
+        return '请选择日期'
       }
     },
     // 范围选择时开始日期的占位内容
     startPlaceholder: {
       type: String,
       default() {
-        return "开始日期";
+        return '开始日期'
       }
     },
     // 范围选择时结束日期的占位内容
     endPlaceholder: {
       type: String,
       default() {
-        return "结束日期";
+        return '结束日期'
       }
     },
     // 可选，绑定值的格式。
     valueFormat: {
       type: String,
       default() {
-        return "yyyy-MM-dd HH:mm:ss";
+        return 'yyyy-MM-dd HH:mm:ss'
       }
     },
     // 当前时间日期选择器特有的选项
@@ -191,38 +191,38 @@ export default {
     // 需要显示的快捷项
     shortcuts() {
       if (!this.shortcutsOption) {
-        return [];
+        return []
       }
       let shortcutsOption = this.shortcutsOption
         .toString()
-        .replace(/\s/g, "")
-        .split(",");
+        .replace(/\s/g, '')
+        .split(',')
       return SHORT_CUTS.filter(it => {
-        return shortcutsOption.includes(it.id);
-      });
+        return shortcutsOption.includes(it.id)
+      })
     },
     // 设置默认pickerOptions
     basePickerOptions() {
-      let shortcutsOption = {};
-      if (["daterange", "datetimerange"].includes(this.$attrs.type)) {
+      let shortcutsOption = {}
+      if (['daterange', 'datetimerange'].includes(this.$attrs.type)) {
         shortcutsOption.shortcuts = SHORT_CUTS.filter(it => {
-          return ["week", "month", "threeMonth"].includes(it.id);
-        });
+          return ['week', 'month', 'threeMonth'].includes(it.id)
+        })
       }
       if (this.shortcuts.length > 0) {
-        shortcutsOption.shortcuts = this.shortcuts;
+        shortcutsOption.shortcuts = this.shortcuts
       }
       if (this.pickerOptions) {
-        return { ...shortcutsOption, ...this.pickerOptions };
+        return { ...shortcutsOption, ...this.pickerOptions }
       }
-      return shortcutsOption;
+      return shortcutsOption
     }
   },
   methods: {
     // Native Methods
     focus() {
-      this.$refs.baseDate.focus();
+      this.$refs.baseDate.focus()
     }
   }
-};
+}
 </script>

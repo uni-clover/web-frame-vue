@@ -16,44 +16,44 @@ export default {
   data() {
     return {
       levelList: null
-    };
+    }
   },
   watch: {
     $route() {
-      this.getBreadcrumb();
+      this.getBreadcrumb()
     }
   },
   created() {
-    this.getBreadcrumb();
+    this.getBreadcrumb()
   },
   methods: {
     getBreadcrumb() {
       // only show routes with meta.title
       let matched = this.$route.matched.filter(
         item => item.meta && item.meta.title
-      );
-      const first = matched[0];
+      )
+      const first = matched[0]
 
       if (!this.isHome(first)) {
-        matched = [{ path: "/", meta: { title: "首页" } }].concat(matched);
+        matched = [{ path: '/', meta: { title: '首页' } }].concat(matched)
       }
 
       this.levelList = matched.filter(
         item => item.meta && item.meta.title && item.meta.breadcrumb !== false
-      );
+      )
     },
     isHome(route) {
-      const name = route && route.name;
+      const name = route && route.name
       if (!name) {
-        return false;
+        return false
       }
-      return name.trim().toLocaleLowerCase() === "home";
+      return name.trim().toLocaleLowerCase() === 'home'
     },
     handleLink(item) {
-      this.$router.push(item.path);
+      this.$router.push(item.path)
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

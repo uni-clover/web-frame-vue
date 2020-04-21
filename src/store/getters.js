@@ -5,5 +5,5 @@ const getters = {
   visitedViews: state => state.tagsView.visitedViews,
   cachedViews: state => state.tagsView.cachedViews,
   routes: state => state.user.menus
-};
-export default getters;
+}
+export default getters

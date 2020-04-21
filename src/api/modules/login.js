@@ -2,8 +2,8 @@
 export default {
   API_LIST_LOGIN: {
     // 登录
-    INTERFACE_LOGIN: "api/login",
+    INTERFACE_LOGIN: 'api/login',
     // 退出登录
-    INTERFACE_LOGOUT: "api/logout"
+    INTERFACE_LOGOUT: 'api/logout'
   }
-};
+}

@@ -48,17 +48,17 @@
 </template>
 
 <script>
-import Locale from "element-ui/src/mixins/locale";
-import fecha from "element-ui/src/utils/date";
-import DateTable from "./date-table";
-import CalendarOptions from "./calendar-options";
-import { validateRangeInOneMonth } from "element-ui/src/utils/date-util";
+import Locale from 'element-ui/src/mixins/locale'
+import fecha from 'element-ui/src/utils/date'
+import DateTable from './date-table'
+import CalendarOptions from './calendar-options'
+import { validateRangeInOneMonth } from 'element-ui/src/utils/date-util'
 
-const validTypes = ["prev-month", "today", "next-month"];
-const oneDay = 86400000;
+const validTypes = ['prev-month', 'today', 'next-month']
+const oneDay = 86400000
 
 export default {
-  name: "PeachCalendar",
+  name: 'PeachCalendar',
 
   inheritAttrs: false,
 
@@ -72,22 +72,22 @@ export default {
   filters: {
     // 渲染单元格的样式
     renderCellStyle(state) {
-      let style = {};
+      let style = {}
       const boxInner = {
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center"
-      };
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+      }
       if (state.boxContent) {
-        style = { ...boxInner };
+        style = { ...boxInner }
       }
       if (state.backgroundColor) {
-        style.backgroundColor = state.backgroundColor;
+        style.backgroundColor = state.backgroundColor
       }
       if (state.color) {
-        style.color = state.color;
+        style.color = state.color
       }
-      return style;
+      return style
     }
   },
 
@@ -101,13 +101,13 @@ export default {
             range.length === 2 &&
             range.every(
               item =>
-                typeof item === "string" ||
-                typeof item === "number" ||
+                typeof item === 'string' ||
+                typeof item === 'number' ||
                 item instanceof Date
             )
-          );
+          )
         } else {
-          return true;
+          return true
         }
       }
     },
@@ -118,7 +118,7 @@ export default {
     stateOptions: {
       type: Array,
       default() {
-        return [];
+        return []
       }
     }
   },
@@ -126,66 +126,66 @@ export default {
   provide() {
     return {
       elCalendar: this
-    };
+    }
   },
 
   methods: {
     pickDay(day) {
-      this.realSelectedDay = day;
+      this.realSelectedDay = day
     },
 
     selectDate(type) {
       if (validTypes.indexOf(type) === -1) {
-        throw new Error(`invalid type ${type}`);
+        throw new Error(`invalid type ${type}`)
       }
-      let day = "";
-      if (type === "prev-month") {
-        day = `${this.prevMonthDatePrefix}-01`;
-      } else if (type === "next-month") {
-        day = `${this.nextMonthDatePrefix}-01`;
+      let day = ''
+      if (type === 'prev-month') {
+        day = `${this.prevMonthDatePrefix}-01`
+      } else if (type === 'next-month') {
+        day = `${this.nextMonthDatePrefix}-01`
       } else {
-        day = this.formatedToday;
+        day = this.formatedToday
       }
 
-      if (day === this.formatedDate) return;
-      this.pickDay(day);
+      if (day === this.formatedDate) return
+      this.pickDay(day)
     },
 
     toDate(val) {
       if (!val) {
-        throw new Error("invalid val");
+        throw new Error('invalid val')
       }
-      return val instanceof Date ? val : new Date(val);
+      return val instanceof Date ? val : new Date(val)
     }
   },
 
   computed: {
     stateList() {
-      let list = [];
+      let list = []
       this.stateOptions.forEach(state => {
         const existed = list.find(it => {
-          return it.backgroundColor === state.backgroundColor;
-        });
+          return it.backgroundColor === state.backgroundColor
+        })
         if (existed) {
           if (existed.content !== state.content) {
-            existed.content = existed.content ? existed.content + "，" : "";
-            existed.content += state.content;
+            existed.content = existed.content ? existed.content + '，' : ''
+            existed.content += state.content
           }
-          return;
+          return
         }
-        list.push(state);
-      });
-      return list;
+        list.push(state)
+      })
+      return list
     },
 
     prevMonthDatePrefix() {
-      const temp = new Date(this.date.getTime());
-      temp.setDate(0);
-      return fecha.format(temp, "yyyy-MM");
+      const temp = new Date(this.date.getTime())
+      temp.setDate(0)
+      return fecha.format(temp, 'yyyy-MM')
     },
 
     curMonthDatePrefix() {
-      return fecha.format(this.date, "yyyy-MM");
+      return fecha.format(this.date, 'yyyy-MM')
     },
 
     nextMonthDatePrefix() {
@@ -193,124 +193,124 @@ export default {
         this.date.getFullYear(),
         this.date.getMonth() + 1,
         1
-      );
-      return fecha.format(temp, "yyyy-MM");
+      )
+      return fecha.format(temp, 'yyyy-MM')
     },
 
     formatedDate() {
-      return fecha.format(this.date, "yyyy-MM-dd");
+      return fecha.format(this.date, 'yyyy-MM-dd')
     },
 
     i18nDate() {
-      const year = this.date.getFullYear();
-      const month = this.date.getMonth() + 1;
-      return `${year} ${this.t("el.datepicker.year")} ${this.t(
-        "el.datepicker.month" + month
-      )}`;
+      const year = this.date.getFullYear()
+      const month = this.date.getMonth() + 1
+      return `${year} ${this.t('el.datepicker.year')} ${this.t(
+        'el.datepicker.month' + month
+      )}`
     },
 
     formatedToday() {
-      return fecha.format(this.now, "yyyy-MM-dd");
+      return fecha.format(this.now, 'yyyy-MM-dd')
     },
 
     realSelectedDay: {
       get() {
-        if (!this.value) return this.selectedDay;
-        return this.formatedDate;
+        if (!this.value) return this.selectedDay
+        return this.formatedDate
       },
       set(val) {
-        this.selectedDay = val;
-        const date = new Date(val);
-        this.$emit("input", date);
+        this.selectedDay = val
+        const date = new Date(val)
+        this.$emit('input', date)
       }
     },
 
     date() {
       if (!this.value) {
         if (this.realSelectedDay) {
-          return new Date(this.selectedDay);
+          return new Date(this.selectedDay)
         } else if (this.validatedRange.length) {
-          return this.validatedRange[0][0];
+          return this.validatedRange[0][0]
         }
-        return this.now;
+        return this.now
       } else {
-        return this.toDate(this.value);
+        return this.toDate(this.value)
       }
     },
 
     // if range is valid, we get a two-digit array
     validatedRange() {
-      let range = this.range;
-      if (!range) return [];
+      let range = this.range
+      if (!range) return []
       const expetedMap = {
         0: {
           value: 1,
-          message: "start of range should be Monday."
+          message: 'start of range should be Monday.'
         },
         1: {
           value: 0,
-          message: "end of range should be Sunday."
+          message: 'end of range should be Sunday.'
         }
-      };
+      }
       range = range.reduce((prev, val, index) => {
-        const date = this.toDate(val);
+        const date = this.toDate(val)
         if (date.getDay() !== expetedMap[index].value) {
           console.warn(
-            "[ElementCalendar]",
+            '[ElementCalendar]',
             expetedMap[index].message,
-            " invalid range will be ignored"
-          );
+            ' invalid range will be ignored'
+          )
         } else {
-          prev = prev.concat(date);
+          prev = prev.concat(date)
         }
-        return prev;
-      }, []);
+        return prev
+      }, [])
       if (range.length === 2) {
-        const [start, end] = range;
+        const [start, end] = range
         if (start > end) {
           console.warn(
-            "[ElementCalendar]end time should be greater than start time"
-          );
-          return [];
+            '[ElementCalendar]end time should be greater than start time'
+          )
+          return []
         }
         // start time and end time in one month
         if (validateRangeInOneMonth(start, end)) {
-          return [[start, end]];
+          return [[start, end]]
         }
-        const data = [];
-        let startDay = new Date(start.getFullYear(), start.getMonth() + 1, 1);
-        const lastDay = this.toDate(startDay.getTime() - oneDay);
+        const data = []
+        let startDay = new Date(start.getFullYear(), start.getMonth() + 1, 1)
+        const lastDay = this.toDate(startDay.getTime() - oneDay)
         if (!validateRangeInOneMonth(startDay, end)) {
           console.warn(
-            "[ElementCalendar]start time and end time interval must not exceed two months"
-          );
-          return [];
+            '[ElementCalendar]start time and end time interval must not exceed two months'
+          )
+          return []
         }
-        data.push([start, lastDay]);
-        let interval = startDay.getDay();
-        interval = interval <= 1 ? Math.abs(interval - 1) : 8 - interval;
-        startDay = this.toDate(startDay.getTime() + interval * oneDay);
+        data.push([start, lastDay])
+        let interval = startDay.getDay()
+        interval = interval <= 1 ? Math.abs(interval - 1) : 8 - interval
+        startDay = this.toDate(startDay.getTime() + interval * oneDay)
         if (startDay.getDate() < end.getDate()) {
-          data.push([startDay, end]);
+          data.push([startDay, end])
         }
-        return data;
+        return data
       }
-      return [];
+      return []
     },
 
     realFirstDayOfWeek() {
       if (this.firstDayOfWeek < 1 || this.firstDayOfWeek > 6) {
-        return 0;
+        return 0
       }
-      return Math.floor(this.firstDayOfWeek);
+      return Math.floor(this.firstDayOfWeek)
     }
   },
 
   data() {
     return {
-      selectedDay: "",
+      selectedDay: '',
       now: new Date()
-    };
+    }
   }
-};
+}
 </script>

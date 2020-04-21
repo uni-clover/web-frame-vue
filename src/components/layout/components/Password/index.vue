@@ -20,14 +20,14 @@
   </el-dialog>
 </template>
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters } from 'vuex'
 export default {
   props: {
     // 控制显示
     visible: {
       type: Boolean,
       default() {
-        return false;
+        return false
       }
     },
     // 弹窗标题
@@ -39,66 +39,66 @@ export default {
     popHandling: {
       type: Boolean,
       default() {
-        return false;
+        return false
       }
     }
   },
   data() {
     return {
       formData: {
-        oldPwd: "",
-        newPwd: "",
-        confirmPwd: ""
+        oldPwd: '',
+        newPwd: '',
+        confirmPwd: ''
       },
       formRules: {
         oldPwd: {
           required: true,
-          message: "原密码不能为空"
+          message: '原密码不能为空'
         },
         newPwd: {
           required: true,
-          message: "新密码不能为空"
+          message: '新密码不能为空'
         },
         confirmPwd: [
           {
             required: true,
-            message: "确认密码不能为空"
+            message: '确认密码不能为空'
           }
         ]
       }
-    };
+    }
   },
   computed: {
-    ...mapGetters(["userInfo"])
+    ...mapGetters(['userInfo'])
   },
   watch: {
     visible(val) {
       if (!val) {
         // 重置表单
-        this.$refs.formPassword.resetFields();
+        this.$refs.formPassword.resetFields()
       }
     }
   },
   methods: {
     // 点击取消处理
     cancel() {
-      this.$emit("update:visible", false);
+      this.$emit('update:visible', false)
     },
     // 点击确定处理
     save() {
       if (this.popHandling) {
-        return;
+        return
       }
       this.$refs.formPassword.validate(valid => {
         if (!valid) {
-          return;
+          return
         }
         if (this.formData.newPwd !== this.formData.confirmPwd) {
-          this.$_error("两次输入的密码不一致!");
-          return;
+          this.$_error('两次输入的密码不一致!')
+          return
         }
-        this.changePassword();
-      });
+        this.changePassword()
+      })
     },
     // 修改密码
     changePassword() {
@@ -107,16 +107,16 @@ export default {
         phone: this.userInfo.phone,
         oldPass: this.formData.oldPwd,
         newPass: this.formData.newPwd
-      };
+      }
       this.$_http
         .post(this.$_API.INTERFACE_USER_CHANGE_PASSWORD, data)
         .then(res => {
-          this.$_success("修改密码成功");
-          this.cancel();
-        });
+          this.$_success('修改密码成功')
+          this.cancel()
+        })
     }
   }
-};
+}
 </script>
 <style lang="scss">
 .popup-password {

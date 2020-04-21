@@ -47,16 +47,7 @@
       "@vue/standard"
     ],
     "rules": {
-      "quotes": [
-        1,
-        "double"
-      ],
-      "semi": [
-        1,
-        "always"
-      ],
-      "space-before-function-paren": 0,
-      "no-useless-escape": 0
+      "space-before-function-paren": 0
     },
     "parserOptions": {
       "parser": "babel-eslint"

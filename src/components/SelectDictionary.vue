@@ -13,7 +13,7 @@
   </el-select>
 </template>
 <script>
-import { mapActions } from "vuex";
+import { mapActions } from 'vuex'
 export default {
   inheritAttrs: false,
   props: {
@@ -35,38 +35,38 @@ export default {
     clearable: {
       type: Boolean,
       default() {
-        return true;
+        return true
       }
     }
   },
   data() {
     return {
       dictionaries: []
-    };
+    }
   },
   created() {
-    this.loadDictionary();
+    this.loadDictionary()
   },
   watch: {
     // 父code改变自动重新查询
     parentDictCode(val) {
-      this.reload();
+      this.reload()
     }
   },
   methods: {
     // Select Methods
     focus() {
-      this.$refs.selectDictionary.focus();
+      this.$refs.selectDictionary.focus()
     },
     blur() {
-      this.$refs.selectDictionary.blur();
+      this.$refs.selectDictionary.blur()
     },
     ...mapActions({
-      getDictionary: "dictionary/getDictionary"
+      getDictionary: 'dictionary/getDictionary'
     }),
     // 重新加载字典数据
     reload() {
-      this.loadDictionary();
+      this.loadDictionary()
     },
     // 根据字典类型获取字典数据
     loadDictionary() {
@@ -75,10 +75,10 @@ export default {
         groupCode: this.groupCode,
         parentDictCode: this.parentDictCode
       }).then(res => {
-        this.dictionaries = res;
-        this.$emit("loaded", res);
-        this.$emit("update:dictionaries", res);
-      });
+        this.dictionaries = res
+        this.$emit('loaded', res)
+        this.$emit('update:dictionaries', res)
+      })
     },
     // 根据字典code获取字典名称，传入对象
     getDictName({ dictCode, systemCode, groupCode, parentDictCode }) {
@@ -87,17 +87,17 @@ export default {
           let firstFilter =
             it.systemCode === systemCode &&
             it.groupCode === groupCode &&
-            dictCode.includes(it.dictCode);
+            dictCode.includes(it.dictCode)
           if (parentDictCode) {
-            return firstFilter && it.parentDictCode === parentDictCode;
+            return firstFilter && it.parentDictCode === parentDictCode
           }
-          return firstFilter;
+          return firstFilter
         })
         .map(it => {
-          return it.dictName;
-        });
-      return target.join("，");
+          return it.dictName
+        })
+      return target.join('，')
     }
   }
-};
+}
 </script>

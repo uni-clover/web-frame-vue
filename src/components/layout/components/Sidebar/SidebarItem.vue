@@ -19,13 +19,13 @@
 </template>
 
 <script>
-import path from "path";
-import Item from "./Item";
-import AppLink from "./Link";
-import FixiOSBug from "./FixiOSBug";
+import path from 'path'
+import Item from './Item'
+import AppLink from './Link'
+import FixiOSBug from './FixiOSBug'
 
 export default {
-  name: "SidebarItem",
+  name: 'SidebarItem',
   components: { Item, AppLink },
   mixins: [FixiOSBug],
   props: {
@@ -40,35 +40,35 @@ export default {
     },
     basePath: {
       type: String,
-      default: ""
+      default: ''
     }
   },
   data() {
     // To fix https://github.com/PanJiaChen/vue-admin-template/issues/237
-    this.onlyOneChild = null;
-    return {};
+    this.onlyOneChild = null
+    return {}
   },
   methods: {
     hasOneShowingChild(children = [], parent) {
-      const showingChildren = children.filter(item => !item.hidden);
+      const showingChildren = children.filter(item => !item.hidden)
 
       // Show parent if there are no child router to display
       if (showingChildren.length === 0) {
-        this.onlyOneChild = { ...parent, path: "" };
-        return true;
+        this.onlyOneChild = { ...parent, path: '' }
+        return true
       }
 
-      return false;
+      return false
     },
     resolvePath(routePath) {
       if (/^(https?:|mailto:|tel:)/.test(routePath)) {
-        return routePath;
+        return routePath
       }
       if (/^(https?:|mailto:|tel:)/.test(this.basePath)) {
-        return this.basePath;
+        return this.basePath
       }
-      return path.resolve(this.basePath, routePath);
+      return path.resolve(this.basePath, routePath)
     }
   }
-};
+}
 </script>

@@ -1,29 +1,29 @@
-import Vue from "vue";
-import Router from "vue-router";
-import Login from "@/views/login";
+import Vue from 'vue'
+import Router from 'vue-router'
+import Login from '@/views/login'
 
-Vue.use(Router);
+Vue.use(Router)
 
 let routes = [
   {
-    path: "/login",
-    name: "login",
+    path: '/login',
+    name: 'login',
     component: Login
   }
-];
+]
 // 菜单路由
-const moduleFiles = require.context("./modules", true, /\.js$/);
+const moduleFiles = require.context('./modules', true, /\.js$/)
 moduleFiles.keys().forEach(modulePath => {
-  routes.push(moduleFiles(modulePath).default);
-});
+  routes.push(moduleFiles(modulePath).default)
+})
 // 共通路由
-const commonFiles = require.context("./common", true, /\.js$/);
+const commonFiles = require.context('./common', true, /\.js$/)
 commonFiles.keys().forEach(modulePath => {
-  routes.push(...commonFiles(modulePath).default);
-});
+  routes.push(...commonFiles(modulePath).default)
+})
 
 export default new Router({
-  mode: "history",
+  mode: 'history',
   base: process.env.BASE_URL,
   routes,
   scrollBehavior(to, from, savedPosition) {
@@ -31,9 +31,9 @@ export default new Router({
       return savedPosition
     } else {
       if (from.meta.keepAlive) {
-        from.meta.savedPosition = document.body.scrollTop;
+        from.meta.savedPosition = document.body.scrollTop
       }
       return { x: 0, y: to.meta.savedPosition || 0 }
     }
   }
-});
+})
