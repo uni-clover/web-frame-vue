@@ -23,8 +23,10 @@ export default {
     cachedViews() {
       return this.$store.state.tagsView.cachedViews
     },
+    // 由于同路由参数搭在地址栏的，故添加fullPath为key，可以缓存同路由的多个页面
     key() {
-      return this.$route.fullPath
+      // 页面刷新后，中文不会被转码。此处强制转码，避免刷新后首次缓存失效
+      return encodeURI(decodeURI(this.$route.fullPath))
     }
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <el-input @input.native="inputEvent($event)" @blur.native="blurEvent($event)" ref="baseInput" :placeholder="placeholder"
+  <el-input @input.native="inputEvent($event)" @blur="blurEvent($event)" ref="baseInput" :placeholder="placeholder"
     :autosize="autosize" :maxlength="maxlen" :show-word-limit="showLimit" :clearable="clearable" v-bind="$attrs"
     v-on="$listeners">
     <template #prefix>
@@ -119,13 +119,13 @@ export default {
   methods: {
     // Input Methods
     focus() {
-      this.$refs.baseInput.focus()
+      return this.$refs.baseInput.focus(...arguments)
     },
     blur() {
-      this.$refs.baseInput.blur()
+      return this.$refs.baseInput.blur(...arguments)
     },
     select() {
-      this.$refs.baseInput.select()
+      return this.$refs.baseInput.select(...arguments)
     },
     // 拦截输入事件
     inputEvent(e) {

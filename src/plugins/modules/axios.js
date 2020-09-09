@@ -58,9 +58,6 @@ _axios.interceptors.response.use(
       if (typeof response.data === 'string') {
         message = '服务器错误，未获取到响应数据'
       } else {
-        if (response.status === 200 && response.data.code === 0) {
-          return Promise.reject(response)
-        }
         // 请求成功，但在业务上为失败
         message = response.data.message || response.data.errorData || '操作执行失败'
       }
